@@ -2,22 +2,29 @@ package com.palmatolay.basic
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry
+
+
 
 @RestController
-class MainController {
+class MainController/*: WebMvcConfigurer*/ {
+    //    @RequestMapping(value = ["/user"], method = [(RequestMethod.GET), (RequestMethod.POST)])
 
     @Autowired
     lateinit var userRepository: UserRepository
-//    @RequestMapping(value = ["/post"], method = [(RequestMethod.GET), (RequestMethod.POST)])
+
+    private final val version = "1.23"
 
     @GetMapping("/")
-    fun index(@RequestParam(value = "name", defaultValue = "World") name: String) = Greeting("Hello, $name")
+    fun index(@RequestParam(value = "name", defaultValue = "World") name: String) =
+            Greeting("Hello, $name", version, Doc())
 
-    @PostMapping("/user/{value}")
+    @PostMapping("/user/create/{value}")
     fun createUser(@PathVariable("value") email: String, @RequestBody data: CreateUser) = userRepository.save(
             User(
                     UUID.randomUUID(),
@@ -28,23 +35,26 @@ class MainController {
     )
 
     @GetMapping("/users")
+//    @RequestParam("registeredDate", required = false) date: String
     fun getAllUsers() = userRepository.findAll()
 
-//    @RequestParam("email", required = false) email: String,
     @GetMapping("/user")
-    fun getUsers(
-        @RequestParam("registeredDate", required = false) date: String) = userRepository.findByRegisteredDate(date)
-//        if (!email.isEmpty()) userRepository.findByEmail(email)
-//        if (!date.isEmpty()) userRepository.findByRegisteredDate(date)
+    fun getUser(@RequestParam("e") date: String) = userRepository.findByEmail(date)
 
     //TODO: Remove it!
-    @PostMapping("/user/test")
-    fun test1CreateUser(@RequestParam("c") count: String) = userRepository.save(
+    @PostMapping("/test/create_user")
+    fun testCreateUser(@RequestParam("e") e: String) = userRepository.save(
             User(
                     UUID.randomUUID(),
-                    "test_$count",
+                    e,
                     "pwd",
                     "null"
             )
     )
+
+//    override fun addViewControllers(registry: ViewControllerRegistry) {
+//        registry.addViewController("/user").setViewName("user")
+////        registry.addViewController("/login").setViewName("login")
+//    }
+
 }
