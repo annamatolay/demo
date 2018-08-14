@@ -4,16 +4,16 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import java.util.*
 import javax.persistence.*
 
-private const val home = "http://localhost:8080/"
+private const val host = "https://palmatolay-demo.herokuapp.com/"
 
 data class Doc(
     val methods: List<String> = listOf(
-            "GET: $home",
-            "GET: $home?name=Unknown",
-            "GET: ${home}users",
-            "GET: ${home}user?e=testemail",
-            "POST: ${home}test/create_user?e=testemail",
-            "POST: ${home}user/create/RANDOM_VALUE_FOR_EMAIL"
+            "GET: $host",
+            "GET: $host?name=Unknown",
+            "GET: ${host}users",
+            "GET: ${host}user?e=testemail",
+            "POST: ${host}test/create_user?e=testemail",
+            "POST: ${host}user/create/RANDOM_VALUE_FOR_EMAIL"
     ),
     val descriptions: List<String> = listOf(
             "welcome",
