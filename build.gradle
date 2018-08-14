@@ -11,6 +11,7 @@ buildscript {
 		classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
 		classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
         classpath "org.jetbrains.kotlin:kotlin-noarg:$kotlinVersion"
+//        classpath("org.asciidoctor:asciidoctor-gradle-plugin:1.5.8")
 	}
 }
 
@@ -20,6 +21,7 @@ apply plugin: 'kotlin-spring'
 //apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+//apply plugin: 'org.asciidoctor.convert'
 
 group = 'com.palmatolay'
 version = '0.0.1-SNAPSHOT'
@@ -39,8 +41,16 @@ compileTestKotlin {
 
 repositories {
 	mavenCentral()
+    jcenter()
 }
 
+//asciidoctor {
+//    sourceDir = file('src/doc/ascii')
+//    sources {
+//        include 'target/snippets/home/*'
+//    }
+//    outputDir = file('src/doc')
+//}
 
 dependencies {
 	compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
@@ -53,5 +63,6 @@ dependencies {
 	compile('com.fasterxml.jackson.module:jackson-module-kotlin')
 	runtime('com.h2database:h2')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile("org.springframework.restdocs:spring-restdocs-mockmvc")
 //	testCompile('org.springframework.security:spring-security-test')
 }
