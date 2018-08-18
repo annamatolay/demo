@@ -4,41 +4,34 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import java.util.*
 import javax.persistence.*
 
-private const val host = "https://palmatolay-demo.herokuapp.com/"
-
-data class Doc(
-    val methods: List<String> = listOf(
-            "GET: $host",
-            "GET: $host?name=Unknown",
-            "GET: ${host}users",
-            "GET: ${host}user?e=testemail",
-            "POST: ${host}test/create_user?e=testemail",
-            "POST: ${host}user/create/RANDOM_VALUE_FOR_EMAIL"
-    ),
-    val descriptions: List<String> = listOf(
-            "welcome",
-            "welcome v2",
-            "get all users",
-            "get user by email",
-            "create test user by the given email (must be unique in the database)",
-            "create user by the give email, JSON need to send in request body: " +
-                    "{'password' : 'RANDOM_VALUE_FOR_PWD'}"
-    )
-)
-
-data class Greeting(val content: String, val version: String, val doc: Doc)
+data class Greeting(val content: String, val version: String)
 
 @Entity
 data class User(
-    @Id
-    val id: UUID,
-    @Column(nullable = false, unique = true)
-    val email: String,
-    @Column(nullable = false)
-    val password: String,
-    val registeredDate: String
-)
 
-data class CreateUser @JsonCreator constructor(
-    val password: String
+    @Column(nullable = false, unique = true)
+    var email: String,
+
+    @Column(nullable = false)
+    var password: String,
+
+    var role: String? = null,
+
+    @Id
+    @GeneratedValue
+    var id: Long? = null,
+
+    var registeredDate: String? = null,
+
+    var name: String?,
+    var city: String?,
+    var organization: String?,
+    var specialization: String?,
+    var education: String?,
+    var material: String?,
+    var human: String?,
+    var service: String?,
+    var description: String?,
+    var petName: String?,
+    var image_URL: String?
 )
