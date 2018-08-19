@@ -13,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry
 
 @RestController
 class MainController {
-    private final val version = "0.1"
+    private final val version = "0.1.2.3"
     @Autowired
     lateinit var userRepository: UserRepository
 

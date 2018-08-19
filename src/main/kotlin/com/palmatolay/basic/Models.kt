@@ -35,3 +35,10 @@ data class User(
     var petName: String?,
     var image_URL: String?
 )
+
+class UploadFileResponse(
+        var fileName: String,
+        var fileDownloadUri: String,
+        var fileType: String?,
+        var size: Long
+)
